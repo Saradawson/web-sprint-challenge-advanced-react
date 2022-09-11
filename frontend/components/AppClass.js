@@ -39,6 +39,7 @@ export default class AppClass extends React.Component {
 
   reset = () => {
     // Use this helper to reset all states to their initial values.
+    this.setState({...this.state, index: 4, steps: 0});
   }
 
   getNextIndex = (direction) => {
@@ -51,16 +52,17 @@ export default class AppClass extends React.Component {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
     if(evt.target.id === 'left' && this.state.index !== 0 && this.state.index !== 3 && this.state.index !== 6){
-      return this.setState({...this.state, index: this.state.index-1});
+      return this.setState({...this.state, index: this.state.index-1, steps: this.state.steps+1});
     }else if(evt.target.id === 'right' && this.state.index !== 2 && this.state.index !== 5 && this.state.index !== 8){
-      return this.setState({...this.state, index: this.state.index+1});
+      return this.setState({...this.state, index: this.state.index+1, steps: this.state.steps+1});
     }else if(evt.target.id === 'up' && this.state.index !== 0 && this.state.index !== 1 && this.state.index !== 2){
-      return this.setState({...this.state, index: this.state.index-3});
+      return this.setState({...this.state, index: this.state.index-3, steps: this.state.steps+1});
     }else if(evt.target.id === 'down' && this.state.index !== 6 && this.state.index !== 7 && this.state.index !== 8){
-      return this.setState({...this.state, index: this.state.index+3});
+      return this.setState({...this.state, index: this.state.index+3, steps: this.state.steps+1});
     }else{
       return this.setState({...this.state, message: `You can\'t go ${evt.target.id}`})
     }
+
   }
 
   onChange = (evt) => {
