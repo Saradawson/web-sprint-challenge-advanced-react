@@ -16,6 +16,15 @@ const initialState = {
 export default class AppClass extends React.Component {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
+  constructor() {
+    super();
+    this.state = {
+      message: '',
+      email: '',
+      index: 4,
+      steps: 0
+    }
+  }
 
   getXY = () => {
     // It it not necessary to have a state to track the coordinates.
@@ -41,10 +50,23 @@ export default class AppClass extends React.Component {
   move = (evt) => {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
+    if(evt.target.id === 'left' && this.state.index !== 0 && this.state.index !== 3 && this.state.index !== 6){
+      return this.setState({...this.state, index: this.state.index-1});
+    }else if(evt.target.id === 'right' && this.state.index !== 2 && this.state.index !== 5 && this.state.index !== 8){
+      return this.setState({...this.state, index: this.state.index+1});
+    }else if(evt.target.id === 'up' && this.state.index !== 0 && this.state.index !== 1 && this.state.index !== 2){
+      return this.setState({...this.state, index: this.state.index-3});
+    }else if(evt.target.id === 'down' && this.state.index !== 6 && this.state.index !== 7 && this.state.index !== 8){
+      return this.setState({...this.state, index: this.state.index+3});
+    }else{
+      return this.setState({...this.state, message: `You can\'t go ${evt.target.id}`})
+    }
   }
 
   onChange = (evt) => {
     // You will need this to update the value of the input.
+    evt.preventDefault();
+    this.setState({...this.state, email: evt.target.value});
   }
 
   onSubmit = (evt) => {
@@ -72,14 +94,14 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
-          <button id="reset">reset</button>
+          <button id="left" onClick={this.move}>LEFT</button>
+          <button id="up" onClick={this.move}>UP</button>
+          <button id="right" onClick={this.move}>RIGHT</button>
+          <button id="down" onClick={this.move}>DOWN</button>
+          <button id="reset" onClick={this.reset}>reset</button>
         </div>
         <form>
-          <input id="email" type="email" placeholder="type email"></input>
+          <input id="email" type="email" placeholder="type email" onChange={this.onChange}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
