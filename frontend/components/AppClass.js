@@ -29,12 +29,60 @@ export default class AppClass extends React.Component {
   getXY = () => {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
+    if(this.state.index === 0){
+      let x = 1;
+      let y = 1;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 1){
+      let x = 1;
+      let y = 2;
+      let coordinates = `(${x}, ${y})`;
+    }else if(this.state.index === 2){
+      let x = 1;
+      let y = 3;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 3){
+      let x = 2;
+      let y = 1;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 4){
+      let x = 2;
+      let y = 2;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 5){
+      let x = 2;
+      let y = 3;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 6){
+      let x = 3;
+      let y = 1;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 7){
+      let x = 3;
+      let y = 2;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }else if(this.state.index === 8){
+      let x = 3;
+      let y = 3;
+      let coordinates = `(${x}, ${y})`;
+      return coordinates;
+    }
+    
   }
 
   getXYMessage = () => {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
+    return `Coordinate ${this.getXY()}`
+
   }
 
   reset = () => {
@@ -80,7 +128,7 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates (2, 2)</h3>
+          <h3 id="coordinates">{this.getXYMessage()}</h3>
           <h3 id="steps">You moved {this.state.steps} times</h3>
         </div>
         <div id="grid">
