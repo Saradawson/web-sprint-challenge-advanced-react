@@ -56,6 +56,8 @@ export default function AppFunctional(props) {
 
   function onChange(evt) {
     // You will need this to update the value of the input.
+    evt.preventDefault();
+    setState({...state, email: evt.target.value});
   }
 
   function onSubmit(evt) {
@@ -88,7 +90,7 @@ export default function AppFunctional(props) {
         <button id="reset" onClick={reset}>reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="type email"></input>
+        <input id="email" type="email" placeholder="type email" onChange={onChange} value={state.email}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
