@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Suggested initial states
 const initialMessage = ''
@@ -9,6 +9,12 @@ const initialIndex = 4 // the index the "B" is at
 export default function AppFunctional(props) {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
+  const [state, setState] = useState({
+    message: initialMessage,
+    email: initialEmail,
+    index: initialIndex,
+    steps: initialSteps
+  })
 
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
@@ -34,6 +40,17 @@ export default function AppFunctional(props) {
   function move(evt) {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
+    if(evt.target.id === 'left' && state.index !== 0 && state.index !== 3 && state.index !== 6){
+      return setState({...state, index: state.index-1, steps: state.steps+1});
+    }else if(evt.target.id === 'right' && state.index !== 2 && state.index !== 5 && state.index !== 8){
+      return setState({...state, index: state.index+1, steps: state.steps+1});
+    }else if(evt.target.id === 'up' && state.index !== 0 && state.index !== 1 && state.index !== 2){
+      return setState({...state, index: state.index-3, steps: state.steps+1});
+    }else if(evt.target.id === 'down' && state.index !== 6 && state.index !== 7 && state.index !== 8){
+      return setState({...state, index: state.index+3, steps: state.steps+1});
+    }else{
+      return setState({...state, message: `You can\'t go ${evt.target.id}`})
+    }
   }
 
   function onChange(evt) {
@@ -63,11 +80,11 @@ export default function AppFunctional(props) {
         <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+        <button id="left" onClick={move}>LEFT</button>
+        <button id="up" onClick={move}>UP</button>
+        <button id="right" onClick={move}>RIGHT</button>
+        <button id="down" onClick={move}>DOWN</button>
+        <button id="reset" onClick={move}>reset</button>
       </div>
       <form>
         <input id="email" type="email" placeholder="type email"></input>

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 // Suggested initial states
 const initialMessage = ''
@@ -81,19 +82,13 @@ export default class AppClass extends React.Component {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
-    return `Coordinate ${this.getXY()}`
+    return `Coordinates ${this.getXY()}`
 
   }
 
   reset = () => {
     // Use this helper to reset all states to their initial values.
-    this.setState({...this.state, index: 4, steps: 0});
-  }
-
-  getNextIndex = (direction) => {
-    // This helper takes a direction ("left", "up", etc) and calculates what the next index
-    // of the "B" would be. If the move is impossible because we are at the edge of the grid,
-    // this helper should return the current index unchanged.
+    this.setState({...this.state, email: '', index: 4, steps: 0});
   }
 
   move = (evt) => {
@@ -121,6 +116,22 @@ export default class AppClass extends React.Component {
 
   onSubmit = (evt) => {
     // Use a POST request to send a payload to the server.
+    evt.preventDefault();
+    let coordinates = this.getXY();
+    let x = coordinates[1];
+    let y = coordinates[4]
+    axios.post('http://localhost:9000/api/result', {
+      x: x,
+      y: y,
+      steps: this.state.steps,
+      email: this.state.email
+    })
+    .then(res => {
+      this.setState({...this.state, message: res.data.message, email: '', index: 4, steps: 0});
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
@@ -141,7 +152,7 @@ export default class AppClass extends React.Component {
           }
         </div>
         <div className="info">
-          <h3 id="message"></h3>
+          <h3 id="message">{this.state.message}</h3>
         </div>
         <div id="keypad">
           <button id="left" onClick={this.move}>LEFT</button>
@@ -150,8 +161,8 @@ export default class AppClass extends React.Component {
           <button id="down" onClick={this.move}>DOWN</button>
           <button id="reset" onClick={this.reset}>reset</button>
         </div>
-        <form>
-          <input id="email" type="email" placeholder="type email" onChange={this.onChange}></input>
+        <form onSubmit={this.onSubmit}>
+          <input id="email" type="email" placeholder="type email" onChange={this.onChange} value={this.state.email}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
