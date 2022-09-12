@@ -26,18 +26,18 @@ export default function AppFunctional(props) {
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 1){
-      let x = 1;
-      let y = 2;
+      let x = 2;
+      let y = 1;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 2){
-      let x = 1;
-      let y = 3;
+      let x = 3;
+      let y = 1;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 3){
-      let x = 2;
-      let y = 1;
+      let x = 1;
+      let y = 2;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 4){
@@ -46,18 +46,18 @@ export default function AppFunctional(props) {
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 5){
-      let x = 2;
-      let y = 3;
+      let x = 3;
+      let y = 2;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 6){
-      let x = 3;
-      let y = 1;
+      let x = 1;
+      let y = 3;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 7){
-      let x = 3;
-      let y = 2;
+      let x = 2;
+      let y = 3;
       let coordinates = `(${x}, ${y})`;
       return coordinates;
     }else if(state.index === 8){
@@ -116,7 +116,7 @@ export default function AppFunctional(props) {
       email: state.email
     })
     .then(res => {
-      setState({...state, message: res.data.message, email: '', index: 4, steps: 0});
+      setState({...state, message: res.data.message, email: ''});
     })
     .catch(err => {
       setState({...state, message: err.response.data.message})
@@ -127,7 +127,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You moved {state.steps} times</h3>
+        <h3 id="steps">You moved {state.steps} {state.steps === 1 ? <span>time</span> : <span>times</span>}</h3>
       </div>
       <div id="grid">
         {
