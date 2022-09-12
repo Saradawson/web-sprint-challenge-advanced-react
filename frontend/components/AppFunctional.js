@@ -29,6 +29,7 @@ export default function AppFunctional(props) {
 
   function reset() {
     // Use this helper to reset all states to their initial values.
+    setState({...state, message: initialMessage, email: initialEmail, index: 4, steps: 0});
   }
 
   function getNextIndex(direction) {
@@ -65,26 +66,26 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates (2, 2)</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="steps">You moved {state.steps} times</h3>
       </div>
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === state.index ? ' active' : ''}`}>
+              {idx === state.index ? 'B' : null}
             </div>
           ))
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{state.message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={move}>LEFT</button>
         <button id="up" onClick={move}>UP</button>
         <button id="right" onClick={move}>RIGHT</button>
         <button id="down" onClick={move}>DOWN</button>
-        <button id="reset" onClick={move}>reset</button>
+        <button id="reset" onClick={reset}>reset</button>
       </div>
       <form>
         <input id="email" type="email" placeholder="type email"></input>
