@@ -82,13 +82,13 @@ export default class AppClass extends React.Component {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
-    return `Coordinates ${this.getXY()}`
+    return `Coordinates ${this.getXY()}`;
 
   }
 
   reset = () => {
     // Use this helper to reset all states to their initial values.
-    this.setState({...this.state, email: '', index: 4, steps: 0});
+    this.setState({...this.state, message: '', email: '', index: 4, steps: 0});
   }
 
   move = (evt) => {
