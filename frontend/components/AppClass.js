@@ -39,6 +39,7 @@ export default class AppClass extends React.Component {
       let x = 1;
       let y = 2;
       let coordinates = `(${x}, ${y})`;
+      return coordinates;
     }else if(this.state.index === 2){
       let x = 1;
       let y = 3;
@@ -130,7 +131,7 @@ export default class AppClass extends React.Component {
       this.setState({...this.state, message: res.data.message, email: '', index: 4, steps: 0});
     })
     .catch(err => {
-      console.log(err);
+      this.setState({...this.state, message: err.response.data.message})
     })
   }
 

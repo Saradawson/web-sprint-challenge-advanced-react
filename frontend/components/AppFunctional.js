@@ -29,6 +29,7 @@ export default function AppFunctional(props) {
       let x = 1;
       let y = 2;
       let coordinates = `(${x}, ${y})`;
+      return coordinates;
     }else if(state.index === 2){
       let x = 1;
       let y = 3;
@@ -118,7 +119,7 @@ export default function AppFunctional(props) {
       setState({...state, message: res.data.message, email: '', index: 4, steps: 0});
     })
     .catch(err => {
-      console.log(err);
+      setState({...state, message: err.response.data.message})
     })
   }
 
